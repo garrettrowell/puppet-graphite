@@ -12,9 +12,14 @@ class graphite::config_apache inherits graphite::params {
 
   # we need an apache with python support
 
-  package {
-    $::graphite::params::apache_pkg:
-      ensure => installed;
+  # if also using the puppetlabs apache manifests
+  # allow them to install apache to avoid duplicate
+  # decleration
+  if $::graphite::params::manage_apache_pkg {
+    package {
+      $::graphite::params::apache_pkg:
+        ensure => installed;
+    }
   }
 
   package {
