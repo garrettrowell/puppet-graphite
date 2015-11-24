@@ -20,12 +20,18 @@ class graphite::config_apache inherits graphite::params {
       $::graphite::params::apache_pkg:
         ensure => installed;
     }
-  }
 
-  package {
-    $::graphite::params::apache_wsgi_pkg:
-      ensure  => installed,
-      require => Package[$::graphite::params::apache_pkg]
+    package {
+      $::graphite::params::apache_wsgi_pkg:
+        ensure  => installed,
+        require => Package[$::graphite::params::apache_pkg]
+    }
+  }
+  else {
+    package {
+      $::graphite::params::apache_wsgi_pkg:
+        ensure  => installed,
+    }
   }
 
   case $::osfamily {
