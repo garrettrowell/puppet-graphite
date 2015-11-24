@@ -15,7 +15,7 @@ class graphite::config_apache inherits graphite::params {
   # if also using the puppetlabs apache manifests
   # allow them to install apache to avoid duplicate
   # decleration
-  if $::graphite::params::manage_apache_pkg {
+  if $::graphite::gr_manage_apache_pkg {
     package {
       $::graphite::params::apache_pkg:
         ensure => installed;
