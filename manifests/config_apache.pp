@@ -68,11 +68,16 @@ class graphite::config_apache inherits graphite::params {
     }
   }
 
-  service { $::graphite::params::apache_service_name:
-    ensure     => running,
-    enable     => true,
-    hasrestart => true,
-    hasstatus  => true;
+  # if also using the puppetlabs apache manifests
+  # allow them to manage  apache service to avoid duplicate
+  # decleration
+  if $::graphite::gr_manage_apache_service {
+    service { $::graphite::params::apache_service_name:
+      ensure     => running,
+      enable     => true,
+      hasrestart => true,
+      hasstatus  => true;
+    }
   }
 
   # Deploy configfiles

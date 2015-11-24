@@ -30,6 +30,7 @@ class graphite::params {
   $install_prefix     = '/opt/'
   $nginxconf_dir      = '/etc/nginx/sites-available'
   $manage_apache_pkg  = true
+  $manage_apache_service = true
 
   case $::osfamily {
     'Debian': {

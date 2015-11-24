@@ -167,10 +167,15 @@
 # [*gr_apache_24*]
 #   Boolean to enable configuration parts for Apache 2.4 instead of 2.2
 #   Default is false/true (autodected. see params.pp)
-# [*manage_apache_pkg*]
+# [*gr_manage_apache_pkg*]
 #   Boolean to enable ensuring the apache package is installed. Used if also using the puppetlabs apache module
 #   to avoid a duplicate decleration.
 #   Default is true
+# [*gr_manage_apache_service*]
+#   Boolean to enable ensuring the apache service is running. Used if also using the puppetlabs apache module
+#   to avoid a duplicate decleration.
+#   Default is true
+
 # [*gr_django_1_4_or_less*]
 #   Set to true to use old Django settings style.
 #   Default is false.
@@ -547,6 +552,7 @@ class graphite (
   $gr_apache_24                           = $::graphite::params::apache_24,
   $gr_apache_noproxy                      = undef,
   $gr_manage_apache_pkg                   = $::graphite::params::manage_apache_pkg,
+  $gr_manage_apache_service               = $::graphite::params::manage_apache_service,
   $gr_django_1_4_or_less                  = false,
   $gr_django_db_engine                    = 'django.db.backends.sqlite3',
   $gr_django_db_name                      = '/opt/graphite/storage/graphite.db',
@@ -678,6 +684,7 @@ class graphite (
   validate_bool($gr_pip_install)
   validate_bool($gr_disable_webapp_cache)
   validate_bool($gr_manage_apache_pkg)
+  validate_bool($gr_manage_apache_service)
 
   # The anchor resources allow the end user to establish relationships
   # to the "main" class and preserve the relationship to the
